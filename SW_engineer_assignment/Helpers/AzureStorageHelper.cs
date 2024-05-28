@@ -12,6 +12,12 @@ namespace Helpers
             return await equipmentTableClient.UpsertEntityAsync(equipmentStatusTableEntity);
         }
 
+        internal static async Task<EquipmentStatus> GetEquipmentStatusById(TableClient equipmentStatusTableClient, string id)
+        {
+            var equipmentStatusTableEntity = (await equipmentStatusTableClient.GetEntityAsync<EquipmentStatusTableEntity>("", id)).Value;
+            return new EquipmentStatus { Id = equipmentStatusTableEntity.RowKey, Status = equipmentStatusTableEntity.Status };
+        }
+
         public class EquipmentStatusTableEntity : ITableEntity
         {
             public string PartitionKey { get; set; }
