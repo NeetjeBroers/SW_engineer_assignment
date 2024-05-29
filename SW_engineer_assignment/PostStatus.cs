@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Azure.Data.Tables;
 using static Helpers.AzureTableHelper;
@@ -17,11 +16,8 @@ namespace SW_engineer_assignment
         [FunctionName("PostStatus")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "status")] HttpRequest httpRequest,
-            [Table("EquipmentStatus", Connection = "EquipmentStorage")] TableClient equipmentTable,
-            ExecutionContext context,
-            ILogger log)
+            [Table("EquipmentStatus", Connection = "EquipmentStorage")] TableClient equipmentTable)
         {
-            log.LogInformation($"C# HTTP trigger function {context.FunctionName} processed a request.");
             try
             {
                 var equipmentStatus = await GetEquipmentStatusFromBody(httpRequest.Body);
@@ -76,7 +72,7 @@ namespace SW_engineer_assignment
             return JsonConvert.DeserializeObject<EquipmentStatus>(requestBody);
         }
 
-        private class ErrorResult
+        public class ErrorResult
         {
             public int Status { get; set; }
             public string ErrorCode { get; set; }

@@ -12,10 +12,12 @@ using static Helpers.AzureTableHelper;
 namespace SW_engineer_assignment
 {
     public static class GetStatus
-    {       
+    {
         [FunctionName("GetStatus")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "status/{id}")] HttpRequest httpRequest,            
+#pragma warning disable IDE0060 // Remove unused parameter
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "status/{id}")] HttpRequest httpRequest,
+#pragma warning restore IDE0060 // Remove unused parameter
             [Table("EquipmentStatus", Connection = "EquipmentStorage")] TableClient equipmentStatusTable,
             ExecutionContext context,
             string id,
@@ -24,7 +26,7 @@ namespace SW_engineer_assignment
             log.LogInformation($"C# HTTP trigger function {context.FunctionName} processed a request.");
             try
             {
-                var equipmentStatusReponse = await GetEquipmentStatusById(equipmentStatusTable, id.ToString());                
+                var equipmentStatusReponse = await GetEquipmentStatusById(equipmentStatusTable, id.ToString());
                 return new OkObjectResult(equipmentStatusReponse);
             }
             catch (RequestFailedException exception)
