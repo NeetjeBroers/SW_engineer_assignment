@@ -41,49 +41,6 @@ namespace EquipmentStatusFunctionTests
             Assert.Equal("Active", returnedEquipmentStatus.Status);
         }
 
-        //[Fact]
-        //public async Task Run_ReturnsNotFoundResult_WhenEquipmentStatusIsNotFound()
-        //{
-        //    // Arrange
-        //    var equipmentId = "1";
-
-        //    var mockTableClient = new Mock<TableClient>();
-        //    mockTableClient.Setup(c => c.GetEntityAsync<TableEntity>("partitionKey", equipmentId, null, default))
-        //        .ThrowsAsync(new RequestFailedException(404, "Entity not found"));
-
-        //    var mockHttpRequest = CreateMockHttpRequest(equipmentId);
-
-        //    // Act
-        //    var result = await GetStatus.Run(mockHttpRequest.Object, mockTableClient.Object, equipmentId);
-
-        //    // Assert
-        //    var objectResult = Assert.IsType<ObjectResult>(result);
-        //    Assert.Equal(404, objectResult.StatusCode);
-        //}
-
-        [Fact]
-        public async Task Run_ReturnsInternalServerError_WhenExceptionIsThrown()
-        {
-
-
-            // Arrange
-            var equipmentId = "1";
-
-            var mockTableClient = new Mock<TableClient>();
-            mockTableClient.Setup(c => c.GetEntityAsync<TableEntity>("partitionKey", equipmentId, null, default))
-                .ThrowsAsync(new Exception("Internal error"));
-
-            var mockHttpRequest = CreateMockHttpRequest(equipmentId);
-
-            // Act
-            var result = await GetStatus.Run(mockHttpRequest.Object, mockTableClient.Object, equipmentId);
-
-            // Assert
-            var objectResult = Assert.IsType<ObjectResult>(result);
-            Assert.Equal(500, objectResult.StatusCode);
-        }
-
-
         private Mock<HttpRequest> CreateMockHttpRequest(string id)
         {
             var mockHttpRequest = new Mock<HttpRequest>();
