@@ -19,11 +19,8 @@ namespace SW_engineer_assignment
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "status/{id}")] HttpRequest httpRequest,
 #pragma warning restore IDE0060 // Remove unused parameter
             [Table("EquipmentStatus", Connection = "EquipmentStorage")] TableClient equipmentStatusTable,
-            ExecutionContext context,
-            string id,
-            ILogger log)
+            string id)
         {
-            log.LogInformation($"C# HTTP trigger function {context.FunctionName} processed a request.");
             try
             {
                 var equipmentStatusReponse = await GetEquipmentStatusById(equipmentStatusTable, id.ToString());

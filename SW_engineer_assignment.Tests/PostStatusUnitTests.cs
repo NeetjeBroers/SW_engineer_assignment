@@ -9,7 +9,7 @@ using Xunit;
 
 namespace EquipmentStatusFunctionTests
 {
-    public class EquipmentStatusFunctionTests
+    public class PostStatusFunctionTests
     {
         [Fact]
         public async Task Run_ReturnsOkResult_WhenRequestIsValid()
