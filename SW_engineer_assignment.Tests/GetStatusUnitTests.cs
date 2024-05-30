@@ -17,30 +17,73 @@ namespace EquipmentStatusFunctionTests
         public async Task Run_ReturnsOkResult_WhenEquipmentStatusIsFound()
         {
             // Arrange
-            var equipmentId = "1";
-            var Id = "";
+            var mockEquipmentId = "1";
+            var partitionKey = "";
             var equipmentStatusTableEntity = new EquipmentStatusTableEntity
             {
                 PartitionKey = "",
-                RowKey = equipmentId,
+                RowKey = mockEquipmentId,
                 Status = "Active",
                 Timestamp = DateTimeOffset.Now
             };
             var mockTableClient = new Mock<TableClient>();
             var response = Response.FromValue(equipmentStatusTableEntity, Mock.Of<Response>());
-            mockTableClient.Setup(item => item.GetEntityAsync<EquipmentStatusTableEntity>(Id, equipmentId, null, default))
+            mockTableClient.Setup(item => item.GetEntityAsync<EquipmentStatusTableEntity>(partitionKey, mockEquipmentId, null, default))
                            .ReturnsAsync(response);
-            var mockHttpRequest = CreateMockHttpRequest(equipmentId);
+            var mockHttpRequest = CreateMockHttpRequest(mockEquipmentId);
             // Act
-            var result = await GetStatus.Run(mockHttpRequest.Object, mockTableClient.Object, equipmentId);
+            var result = await GetStatus.Run(mockHttpRequest.Object, mockTableClient.Object, mockEquipmentId);
             // Assert
             var okObjectResult = Assert.IsType<OkObjectResult>(result);
-            var returnedStatus = Assert.IsType<EquipmentStatus>(okObjectResult.Value);
+            var returnedEquipmentStatus = Assert.IsType<EquipmentStatus>(okObjectResult.Value);
             Assert.Equal(200, okObjectResult.StatusCode);
-            Assert.Equal(equipmentId, returnedStatus.Id);
-            Assert.Equal("Active", returnedStatus.Status);            
+            Assert.Equal(mockEquipmentId, returnedEquipmentStatus.Id);
+            Assert.Equal("Active", returnedEquipmentStatus.Status);
         }
-      
+
+        //[Fact]
+        //public async Task Run_ReturnsNotFoundResult_WhenEquipmentStatusIsNotFound()
+        //{
+        //    // Arrange
+        //    var equipmentId = "1";
+
+        //    var mockTableClient = new Mock<TableClient>();
+        //    mockTableClient.Setup(c => c.GetEntityAsync<TableEntity>("partitionKey", equipmentId, null, default))
+        //        .ThrowsAsync(new RequestFailedException(404, "Entity not found"));
+
+        //    var mockHttpRequest = CreateMockHttpRequest(equipmentId);
+
+        //    // Act
+        //    var result = await GetStatus.Run(mockHttpRequest.Object, mockTableClient.Object, equipmentId);
+
+        //    // Assert
+        //    var objectResult = Assert.IsType<ObjectResult>(result);
+        //    Assert.Equal(404, objectResult.StatusCode);
+        //}
+
+        [Fact]
+        public async Task Run_ReturnsInternalServerError_WhenExceptionIsThrown()
+        {
+
+
+            // Arrange
+            var equipmentId = "1";
+
+            var mockTableClient = new Mock<TableClient>();
+            mockTableClient.Setup(c => c.GetEntityAsync<TableEntity>("partitionKey", equipmentId, null, default))
+                .ThrowsAsync(new Exception("Internal error"));
+
+            var mockHttpRequest = CreateMockHttpRequest(equipmentId);
+
+            // Act
+            var result = await GetStatus.Run(mockHttpRequest.Object, mockTableClient.Object, equipmentId);
+
+            // Assert
+            var objectResult = Assert.IsType<ObjectResult>(result);
+            Assert.Equal(500, objectResult.StatusCode);
+        }
+
+
         private Mock<HttpRequest> CreateMockHttpRequest(string id)
         {
             var mockHttpRequest = new Mock<HttpRequest>();
