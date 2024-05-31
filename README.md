@@ -3,19 +3,19 @@
 
 **1: Overview of the Application**
 The EquipmentStatusApi Azure Function is a serverless compute service running in the Microsoft Azure Cloud.
-By selecting Azure Functions, developers can develop and deploy the solution in a scalable and cost-effective manner.
+By selecting Azure Functions, the solution is easily scalable and deployed cost-effectively.
 
 **1.1: Functionalities**
 
-- Creating of Equipment statuses
-- Get specific Equipment status
-- Get all Equipment statuses
+- Creating of equipment statuses
+- Get specific equipment status
+- Get all equipment statuses
 
-**2: Setting Up and Running the Application**
+**2: Setting up and running the application**
 
-**2.1: Environment Setup**
-**- Create an Azure function App.**
-  - Create New Azure Function App.
+**2.1: Environment setup**
+**- Create an Azure Function App.**
+  - Create new Azure Function App.
    ![image](https://github.com/NeetjeBroers/SW_engineer_assignment/assets/49155482/7cab14fc-de68-4a49-b9b6-16dd01b30fa4)
   - Select Consumption Plan.
     ![image](https://github.com/NeetjeBroers/SW_engineer_assignment/assets/49155482/55910605-e90e-4254-a635-768095830e27)
@@ -26,9 +26,8 @@ By selecting Azure Functions, developers can develop and deploy the solution in 
 - Do a final control of the settings and create the Azure Function App.
  ![image](https://github.com/NeetjeBroers/SW_engineer_assignment/assets/49155482/dee24a85-6c25-4998-a78f-9828e938f42f)
 
-- Navigate to the created Azure Function App and add application setting.
+- Navigate to the created Azure Function App and add the application setting.
   ![image](https://github.com/NeetjeBroers/SW_engineer_assignment/assets/49155482/277c1ba9-2972-43da-85c5-0ac55b1df90d)
-
 
 **2.2: Create an Azure storage for the Azure Storage Table Database.**
 - Create a storage account.        
@@ -40,7 +39,7 @@ By selecting Azure Functions, developers can develop and deploy the solution in 
 - go to the Acces Keys and copy the Key1 connection string.
  ![image](https://github.com/NeetjeBroers/SW_engineer_assignment/assets/49155482/275ecd09-eb7e-49ab-b539-fe83a1a91d0c)
 
-**2.3: Deploy the Function App to the App in Azure**
+**2.3: Deploy the Function App to the Azure Function App in Azure**
 - Select the Azure Function App in Visual Studio and right click to get the publish option.
 ![image](https://github.com/NeetjeBroers/SW_engineer_assignment/assets/49155482/939a7af8-9da0-406e-9cdb-87908b8a7d65)
 - Select the Azure option.
