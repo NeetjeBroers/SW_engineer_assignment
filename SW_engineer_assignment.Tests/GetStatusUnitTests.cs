@@ -1,11 +1,8 @@
-using System.Net;
-using System.Text;
 using Azure;
 using Azure.Data.Tables;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Newtonsoft.Json;
 using SW_engineer_assignment;
 using Xunit;
 using static Helpers.AzureTableHelper;
