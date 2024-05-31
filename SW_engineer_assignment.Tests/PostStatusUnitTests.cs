@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Newtonsoft.Json;
-using SW_engineer_assignment;
+using EquipmentStatusApi;
 using Xunit;
 
-namespace EquipmentStatusFunctionTests
+namespace EquipmentStatusApiTests
 {
     public class PostStatusFunctionTests
     {

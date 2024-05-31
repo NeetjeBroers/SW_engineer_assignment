@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "SW_engineer_assignment": {
+    "EquipmentStatusApi": {
       "commandName": "Project",
       "commandLineArgs": "--port 7024",
       "launchBrowser": false

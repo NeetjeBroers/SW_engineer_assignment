@@ -3,9 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System;
 
-[assembly: FunctionsStartup(typeof(SW_engineer_assignment.Startup))]
+[assembly: FunctionsStartup(typeof(EquipmentStatusApi.Startup))]
 
-namespace SW_engineer_assignment
+namespace EquipmentStatusApi
 {
     public class Startup : FunctionsStartup
     {

@@ -11,12 +11,12 @@ using System.Net;
 using System.Threading.Tasks;
 using static Helpers.AzureTableHelper;
 
-namespace SW_engineer_assignment
+namespace EquipmentStatusApi
 {
     public static class GetEquipmentStatus
     {
         [FunctionName("GetEquipmentStatus")]
-        [OpenApiOperation(operationId: "GetEquipmentStatus", tags: new[] { "Get Equipment Status" })]
+        [OpenApiOperation(operationId: "GetEquipmentStatus", tags: ["Get Equipment Status"])]
         [OpenApiParameter(name: "id", In = ParameterLocation.Path, Required = true, Type = typeof(string), Description = "ID of the equipment")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(EquipmentStatus), Description = "Successful response with equipment status")]
         [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.NotFound, Description = "Resource not found")]

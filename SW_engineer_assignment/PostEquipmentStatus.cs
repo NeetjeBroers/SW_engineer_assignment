@@ -11,7 +11,7 @@ using static Helpers.AzureTableHelper;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using System.Net;
 
-namespace SW_engineer_assignment
+namespace EquipmentStatusApi
 {
     public static class PostEquipmentStatus
     {
