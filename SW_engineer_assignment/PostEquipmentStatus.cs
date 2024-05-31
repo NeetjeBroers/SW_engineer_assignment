@@ -8,12 +8,19 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Azure.Data.Tables;
 using static Helpers.AzureTableHelper;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
+using System.Net;
 
 namespace SW_engineer_assignment
 {
-    public static class PostStatus
+    public static class PostEquipmentStatus
     {
-        [FunctionName("PostStatus")]
+        [FunctionName("PostEquipmentStatus")]
+        [OpenApiOperation(operationId: "PostEquipmentStatus", tags: new[] { "Post Equipment Status" })]
+        [OpenApiRequestBody("application/json", typeof(EquipmentStatus), Description = "Equipment status to be updated or created")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(EquipmentStatus), Description = "Successfully updated or created equipment status")]
+        [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.BadRequest, Description = "Invalid input")]
+        [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.InternalServerError, Description = "Internal server error")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "status")] HttpRequest httpRequest,
             [Table("EquipmentStatus", Connection = "EquipmentStorage")] TableClient equipmentTable)

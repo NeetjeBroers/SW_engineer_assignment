@@ -30,7 +30,7 @@ namespace EquipmentStatusFunctionTests
                            .ReturnsAsync(response);
             var mockHttpRequest = CreateMockHttpRequest(Id);
             // Act
-            var result = await GetStatus.Run(mockHttpRequest.Object, mockTableClient.Object, Id);
+            var result = await GetEquipmentStatus.Run(mockHttpRequest.Object, mockTableClient.Object, Id);
             // Assert
             var okObjectResult = Assert.IsType<OkObjectResult>(result);
             var returnedEquipmentStatus = Assert.IsType<EquipmentStatus>(okObjectResult.Value);
@@ -58,11 +58,11 @@ namespace EquipmentStatusFunctionTests
                          .ThrowsAsync(new RequestFailedException(404, responseBody));
             var mockHttpRequest = CreateMockHttpRequest(Id);
             // Act
-            var result = await GetStatus.Run(mockHttpRequest.Object, mockTableClient.Object, Id);
+            var result = await GetEquipmentStatus.Run(mockHttpRequest.Object, mockTableClient.Object, Id);
             // Assert
             var objectResult = Assert.IsType<ObjectResult>(result);
             Assert.Equal(404, objectResult.StatusCode);
-            Assert.Contains(responseBody, objectResult.Value.ToString());
+            Assert.Contains(responseBody, objectResult.Value?.ToString());
         }
 
         private static Mock<HttpRequest> CreateMockHttpRequest(string id)

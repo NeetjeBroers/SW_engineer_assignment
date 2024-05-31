@@ -20,7 +20,7 @@ namespace EquipmentStatusFunctionTests
             Mock<HttpRequest> mockHttpRequest = CreateMockHttpRequest(validEquipmentStatusJson);
             var mockTableClient = new Mock<TableClient>();
             // Act
-            var result = await PostStatus.Run(mockHttpRequest.Object, mockTableClient.Object);
+            var result = await PostEquipmentStatus.Run(mockHttpRequest.Object, mockTableClient.Object);
             // Assert
             var okObjectResult = Assert.IsType<OkObjectResult>(result);
             Assert.Equal(200, okObjectResult.StatusCode);
@@ -35,13 +35,13 @@ namespace EquipmentStatusFunctionTests
             Mock<HttpRequest> mockHttpRequest = CreateMockHttpRequest(validEquipmentStatusJson);
             var mockTableClient = new Mock<TableClient>();
             // Act
-            var result = await PostStatus.Run(mockHttpRequest.Object, mockTableClient.Object);
+            var result = await PostEquipmentStatus.Run(mockHttpRequest.Object, mockTableClient.Object);
             // Assert
             var objectResult = Assert.IsType<ObjectResult>(result);
-            var errorResultValue = (SW_engineer_assignment.PostStatus.ErrorResult)objectResult.Value;
-            Assert.Equal(400, objectResult.StatusCode);
-            Assert.Equal("Status not found in posted request", errorResultValue.Message);
-            Assert.Equal("InvalidRequest", errorResultValue.ErrorCode);
+            var errorResultValue = (PostEquipmentStatus.ErrorResult?)objectResult?.Value;
+            Assert.Equal(400, objectResult?.StatusCode);
+            Assert.Equal("Status not found in posted request", errorResultValue?.Message);
+            Assert.Equal("InvalidRequest", errorResultValue?.ErrorCode);
         }
 
         [Fact]
@@ -53,13 +53,13 @@ namespace EquipmentStatusFunctionTests
             Mock<HttpRequest> mockHttpRequest = CreateMockHttpRequest(validEquipmentStatusJson);
             var mockTableClient = new Mock<TableClient>();
             // Act
-            var result = await PostStatus.Run(mockHttpRequest.Object, mockTableClient.Object);
+            var result = await PostEquipmentStatus.Run(mockHttpRequest.Object, mockTableClient.Object);
             // Assert
             var objectResult = Assert.IsType<ObjectResult>(result);
-            var errorResultValue = (SW_engineer_assignment.PostStatus.ErrorResult)objectResult.Value;
-            Assert.Equal(400, objectResult.StatusCode);
-            Assert.Equal("Id not found in posted request", errorResultValue.Message);
-            Assert.Equal("InvalidRequest", errorResultValue.ErrorCode);
+            var errorResultValue = (PostEquipmentStatus.ErrorResult?)objectResult?.Value;
+            Assert.Equal(400, objectResult?.StatusCode);
+            Assert.Equal("Id not found in posted request", errorResultValue?.Message);
+            Assert.Equal("InvalidRequest", errorResultValue?.ErrorCode);
         }
 
         private static Mock<HttpRequest> CreateMockHttpRequest(string body)

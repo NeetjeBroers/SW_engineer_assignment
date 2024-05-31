@@ -1,22 +1,25 @@
-using System;
-using System.IO;
-using System.Threading.Tasks;
+using Azure.Data.Tables;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
+using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using Azure.Data.Tables;
-using static Helpers.AzureTableHelper;
 using System.Collections.Generic;
-using System.Transactions;
+using System.Net;
+using System.Threading.Tasks;
+using static Helpers.AzureTableHelper;
 
 namespace SW_engineer_assignment
 {
-    public static class GetAllStatus
+    public static class GetAllEquipmentStatuses
     {
-        [FunctionName("GetAllStatus")]
+        [FunctionName("GetAllEquipmentStatuses")]
+        [OpenApiOperation(operationId: "GetAllEquipmentStatuses", tags: new[] { "Get All Statuses" })]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(List<EquipmentStatus>), Description = "Successfully retrieved equipment statuses")]
+        [OpenApiResponseWithoutBody(statusCode: HttpStatusCode.InternalServerError, Description = "Internal server error")]
+
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "status")] HttpRequest httpRequest,
              [Table("EquipmentStatus", Connection = "EquipmentStorage")] TableClient equipmentStatusTable)
